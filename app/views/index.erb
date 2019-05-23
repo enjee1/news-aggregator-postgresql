@@ -8,9 +8,9 @@
   <body>
       <div class="articles">
         <ul>
-          <% @articles.each do |row| %>
+          <% @articles.each do |row| %>          
           <li><%= "Title: #{row["title"]}" %></li>
-            <p><%= "URL: " %><a target="_blank" href="<%= "http://#{row["url"]}" %>"><%= "#{row["url"]}" %></a> </p>
+            <p><%= "URL: " %><a target="_blank" href="<%= "#{row["url"]}" %>"><%= "#{row["url"]}" %></a> </p>
           <p><%= "Description: #{row["description"]}" %></p><br>
           <% end %>
         </ul>

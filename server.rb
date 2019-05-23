@@ -33,14 +33,18 @@ post "/articles" do
   url = params["article_url"]
   description = params["article_description"]
 
-  CSV.open("article_list.csv", "a") do |csv|
-    csv << [title, url, description]
+  db_connection do |conn|
+    conn.exec_params("INSERT INTO articles (title, url, description)
+    VALUES ($1, $2, $3)", [title, url, description])    
   end
 
   redirect "/articles"
 end
 
 get "/articles" do
-  @articles = CSV.readlines("article_list.csv", headers: true)
+  db_connection do |conn|
+    @articles = conn.exec("SELECT * FROM articles")
+  end
+
   erb :index
 end
